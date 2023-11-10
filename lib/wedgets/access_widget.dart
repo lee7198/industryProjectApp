@@ -55,6 +55,6 @@ class _AccessState extends State<Access> {
 
   @override
   Widget build(BuildContext context) {
-    return CameraScreen(controller: controller, cameras: cameras);
+    return CameraScreen(controller: controller);
   }
 }
