@@ -1,29 +1,30 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
-List<CameraDescription> _cameras = <CameraDescription>[];
+import '../main.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+class CameraScreen extends StatefulWidget {
+  late CameraController controller;
+  final List<CameraDescription> cameras;
 
-  _cameras = await availableCameras();
-  runApp(const MyApp());
-}
-
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+  CameraScreen({
+    super.key,
+    required this.controller,
+    required this.cameras,
+  });
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<CameraScreen> createState() => _CameraScreenState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _CameraScreenState extends State<CameraScreen> {
   late CameraController controller;
   late var errorState = false;
+
   @override
   void initState() {
     super.initState();
-    controller = CameraController(_cameras[0], ResolutionPreset.max);
+    controller = CameraController(cameras[0], ResolutionPreset.max);
     controller.initialize().then((_) {
       if (!mounted) {
         return;
@@ -43,13 +44,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: CameraPreview(controller));
+    return CameraPreview(controller);
   }
 }

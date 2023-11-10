@@ -5,6 +5,7 @@ import 'package:industry/wedgets/access_widget.dart';
 List<CameraDescription> cameras = <CameraDescription>[];
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   cameras = await availableCameras();
 
   runApp(const App());

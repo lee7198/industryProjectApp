@@ -2,8 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:industry/main.dart';
 import 'package:industry/screens/access_screen.dart';
-
-// List<CameraDescription> _cameras = <CameraDescription>[];
+import 'package:industry/screens/camera_screen.dart';
 
 class Access extends StatefulWidget {
   final List<CameraDescription> cameras;
@@ -49,7 +48,13 @@ class _AccessState extends State<Access> {
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Container();
+    return CameraScreen(controller: controller, cameras: cameras);
   }
 }
